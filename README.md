@@ -99,6 +99,9 @@ bot.save_screenshot('whatsapp_screenshot.png')
 - `verbose` (bool): Whether to print logs to the console (default: `True`).
 - `saveQR` (bool): Whether to save the QR code as a screenshot (default: `False`).
 - `humanize` (int): Time delay (in seconds) to humanize actions like typing and sending messages.
+- `headless` (bool): Whether to run the program in headless mode (default: `False`).
+- `sandbox` (bool): Whether to use a sandbox environment (default: `True`).
+- `shm` (bool): Whether to enable shared memory (default: `True`).  
 
 ## Dependencies
 
