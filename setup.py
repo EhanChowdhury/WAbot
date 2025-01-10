@@ -8,9 +8,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "selenium",
-        "undetected-chromedriver",
         "webdriver_manager",
-        "beautifulsoup4",
         "pyperclip"
     ],
     description="A WhatsApp bot automation library",
