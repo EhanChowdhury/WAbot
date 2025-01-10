@@ -10,7 +10,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import pyperclip
 from typing import List, Dict
-
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -18,22 +17,19 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 class WAbot:
-    def __init__(self, verbose=True, saveQR=False):
+    def __init__(self, verbose=True,saveQR=False, headless=False, sandbox=True, shm=True):
 
         self.verbose = verbose
         self.log("Starting Chrome...")
         chrome_options = Options()
-        chrome_options.add_argument('--headless')  # Run in headless mode
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        if headless: chrome_options.add_argument('--headless')  # Run in headless mode
+        if not sandbox: chrome_options.add_argument('--no-sandbox')
+        if not shm: chrome_options.add_argument('--disable-dev-shm-usage')
         service = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
         self.driver.get('https://web.whatsapp.com/')
         self.log("Opened WA please login, waiting for login...")
-        if saveQR == True:
-            time.sleep(10)
-            self.driver.save_screenshot("QRcode.png")
-            self.log("saved QR code")
+        if saveQR: time.sleep(10); self.driver.save_screenshot("QRcode.png"); self.log("saved QR code")
         time.sleep(2)
         WebDriverWait(self.driver, 100).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[3]/div/div[3]/header/header/div/div[1]/h1'))
