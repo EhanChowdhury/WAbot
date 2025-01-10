@@ -22,6 +22,12 @@ WAbot is a Python library designed to automate interactions with WhatsApp Web us
 pip install selenium pyperclip webdriver-manager
 ```
 
+3. Install the WAbot library:
+
+```bash
+pip install https://github.com/EhanChowdhury/WAbot.git
+```
+
 ## Usage
 
 ### Initialize WAbot
