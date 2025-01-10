@@ -1,0 +1,9 @@
+README.md
+setup.py
+WAbot/__init__.py
+WAbot/bot.py
+WAbot.egg-info/PKG-INFO
+WAbot.egg-info/SOURCES.txt
+WAbot.egg-info/dependency_links.txt
+WAbot.egg-info/requires.txt
+WAbot.egg-info/top_level.txt

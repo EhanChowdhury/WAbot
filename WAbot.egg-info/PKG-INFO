@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: WAbot
+Version: 0.1
+Summary: A WhatsApp bot automation library
+Home-page: https://github.com/yourusername/WAbot
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: selenium
+Requires-Dist: undetected-chromedriver
+Requires-Dist: webdriver_manager
+Requires-Dist: beautifulsoup4
+Requires-Dist: pyperclip
