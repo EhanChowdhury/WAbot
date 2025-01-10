@@ -25,7 +25,7 @@ pip install selenium pyperclip webdriver-manager
 3. Install the WAbot library:
 
 ```bash
-pip install https://github.com/EhanChowdhury/WAbot.git
+pip install pip install git+https://github.com/EhanChowdhury/WAbot.git
 ```
 
 ## Usage
