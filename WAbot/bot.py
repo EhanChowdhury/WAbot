@@ -75,6 +75,7 @@ class WAbot:
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
             clipboard.copy(msg)
+            self.log("nigg")
             paste_key = Keys.CONTROL if platform.system() in ["Windows", "Linux"] else Keys.COMMAND
             message_Element.send_keys(paste_key, 'v')
             self.log("Typed message successfully, sending...")
