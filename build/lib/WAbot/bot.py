@@ -8,11 +8,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+import pyperclip
 from typing import List, Dict
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-import pyclip
 
 
 
@@ -74,8 +74,7 @@ class WAbot:
             message_Element.click()
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
-            pyclip.copy(msg)
-            self.log("using clipboard")
+            pyperclip.copy(msg)
             paste_key = Keys.CONTROL if platform.system() in ["Windows", "Linux"] else Keys.COMMAND
             message_Element.send_keys(paste_key, 'v')
             self.log("Typed message successfully, sending...")
