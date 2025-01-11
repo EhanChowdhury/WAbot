@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: WAbot
-Version: 0.1
+Version: 0.2
 Summary: A WhatsApp bot automation library
 Home-page: https://github.com/EhanChowdhury/WAbot
 Author: Ehan Chowdhury
@@ -13,7 +13,7 @@ Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: selenium
 Requires-Dist: webdriver_manager
-Requires-Dist: clipboard
+Requires-Dist: copykitten
 
 # WAbot - WhatsApp Automation Library
 

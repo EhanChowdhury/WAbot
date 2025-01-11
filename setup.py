@@ -9,7 +9,7 @@ setup(
     install_requires=[
         "selenium",
         "webdriver_manager",
-        "clipboard"
+        "copykitten"
     ],
     description="A WhatsApp bot automation library",
     long_description=open("README.md").read(),

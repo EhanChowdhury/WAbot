@@ -12,7 +12,7 @@ from typing import List, Dict
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-import clipboard
+import copykitten
 
 
 
@@ -74,7 +74,7 @@ class WAbot:
             message_Element.click()
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
-            clipboard.copy(msg)
+            copykitten.copy(msg)
             self.log("using clipboard")
             paste_key = Keys.CONTROL if platform.system() in ["Windows", "Linux"] else Keys.COMMAND
             message_Element.send_keys(paste_key, 'v')
