@@ -36,7 +36,7 @@ pip install git+https://github.com/EhanChowdhury/WAbot.git
 from WAbot import WAbot
 
 # Create an instance of WAbot
-bot = WAbot(verbose=True, saveQR=False)
+bot = WAbot(verbose=True, saveQR=False, headless=False, sandbox=True, shm=True)
 ```
 
 ### Go to a Contact
