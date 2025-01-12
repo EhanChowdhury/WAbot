@@ -2,7 +2,6 @@
 
 import platform
 import random
-import subprocess
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -75,7 +74,7 @@ class WAbot:
             message_Element.click()
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
-            subprocess.run(f"echo '{msg}' | xclip -selection clipboard", shell=True)
+            pyperclip.copy(msg)
             paste_key = Keys.CONTROL if platform.system() in ["Windows", "Linux"] else Keys.COMMAND
             message_Element.send_keys(paste_key, 'v')
             self.log("Typed message successfully, sending...")
