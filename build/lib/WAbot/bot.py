@@ -74,9 +74,11 @@ class WAbot:
             message_Element.click()
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
-            pyperclip.copy(msg)
-            paste_key = Keys.CONTROL if platform.system() in ["Windows", "Linux"] else Keys.COMMAND
-            message_Element.send_keys(paste_key, 'v')
+            self.driver.execute_script("""
+                arguments[0].textContent = arguments[1];
+                const inputEvent = new Event('input', { bubbles: true });
+                arguments[0].dispatchEvent(inputEvent);
+            """, message_Element, msg)
             self.log("Typed message successfully, sending...")
             time.sleep(humanize)
             message_Element.send_keys(Keys.RETURN)
