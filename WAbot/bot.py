@@ -74,7 +74,7 @@ class WAbot:
             message_Element.click()
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
-            pyperclip.copy()
+            pyperclip.copy(msg)
             paste_key = Keys.CONTROL if platform.system() in ["Windows", "Linux"] else Keys.COMMAND
             message_Element.send_keys(paste_key, 'v')
             self.log("Typed message successfully, sending...")
@@ -83,6 +83,7 @@ class WAbot:
             self.log("Sent message successfully.")
         except Exception as e:
             self.log(f"Failed to send message: {e}")
+            
 
     def check_if_wa(self, phone_number: str):
         try:
