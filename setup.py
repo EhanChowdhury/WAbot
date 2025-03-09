@@ -4,12 +4,11 @@ from setuptools import setup, find_packages
 
 setup(
     name="WAbot",  # Replace with your desired package name
-    version="0.3",
+    version="0.4",
     packages=find_packages(),
     install_requires=[
         "selenium",
-        "webdriver_manager",
-        "pyperclip"
+        "webdriver_manager"
     ],
     description="A WhatsApp bot automation library",
     long_description=open("README.md").read(),
