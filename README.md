@@ -107,7 +107,6 @@ bot.save_screenshot('whatsapp_screenshot.png')
 
 - Python 3.6+
 - [Selenium](https://pypi.org/project/selenium/)
-- [pyperclip](https://pypi.org/project/pyperclip/)
 - [webdriver-manager](https://pypi.org/project/webdriver-manager/)
 
 ## License
