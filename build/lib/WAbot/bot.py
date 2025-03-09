@@ -2,13 +2,13 @@
 
 import platform
 import random
+import pyperclip
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-import pyperclip
 from typing import List, Dict
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -17,24 +17,35 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 class WAbot:
-    def __init__(self, verbose=True,saveQR=False, headless=False, sandbox=True, shm=True):
-
+    def __init__(self, verbose=True, saveQR=False, headless=False, sandbox=True, shm=True):
         self.verbose = verbose
         self.log("Starting Chrome...")
         chrome_options = Options()
-        if headless: chrome_options.add_argument('--headless')  # Run in headless mode
-        if not sandbox: chrome_options.add_argument('--no-sandbox')
-        if not shm: chrome_options.add_argument('--disable-dev-shm-usage')
+        if headless:
+            chrome_options.add_argument('--headless')  # Run in headless mode
+        if not sandbox:
+            chrome_options.add_argument('--no-sandbox')
+        if not shm:
+            chrome_options.add_argument('--disable-dev-shm-usage')
+
+        # Set the user agent to Firefox
+        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0"
+        chrome_options.add_argument(f'user-agent={user_agent}')
+
         service = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
         self.driver.get('https://web.whatsapp.com/')
         self.log("Opened WA please login, waiting for login...")
-        if saveQR: time.sleep(10); self.driver.save_screenshot("QRcode.png"); self.log("saved QR code")
+        if saveQR:
+            time.sleep(10)
+            self.driver.save_screenshot("QRcode.png")
+            self.log("saved QR code")
         time.sleep(2)
         WebDriverWait(self.driver, 100).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[3]/div/div[3]/header/header/div/div[1]/h1'))
         )
         self.log("Loaded WA, continuing...")
+        self.prepare_textbox()
 
     def go_to_contact(self, name: str):
         try:
@@ -52,7 +63,57 @@ class WAbot:
         if self.verbose:
             print(message)
 
-    
+
+
+    def prepare_textbox(self):
+        """Turns off the enter key to send the message option and clicks on 'Chats' then niggga."""
+        try:
+            # Create a chord for Control + Alt + Comma
+            actions = webdriver.ActionChains(self.driver)
+
+            # Press and hold Control and Alt, then send the comma, and release the keys
+            actions.key_down(Keys.CONTROL)
+            actions.key_down(Keys.ALT)
+            actions.send_keys(',')  # Comma is sent as a literal string
+            actions.key_up(Keys.ALT)
+            actions.key_up(Keys.CONTROL)
+            actions.perform()
+
+            # Find and click the "Chats" text
+            chats_element = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//*[text()='Chats']"))
+            )
+            chats_element.click()
+            self.log("Clicked on 'Chats' successfully.")
+
+            # Check if the element's class matches the expected class
+            checkbox_SVG = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div/div[3]/div/div[2]/div[1]/span/div/div/span/div/div/div/div/div/div[2]/div[6]/div/div/div'))
+            )
+            checkbox_clickable_element = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div/div[3]/div/div[2]/div[1]/span/div/div/span/div/div/div/div/div/div[2]/div[6]/div/div'))
+            )
+            element_class = checkbox_SVG.get_attribute('class')
+            expected_class = "x1n2onr6 x9f619 x5yr21d x47corl xamhcws xol2nv xlxy82 x19p7ews x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi xm3z3ea x1x8b98j x131883w x16mih1h xts7igz xv1tzdm x1mn1qpr x1eqfvxv xh797gm xrn79m2 xfpr502"
+            
+            if element_class == expected_class:
+                print("Element class matches the expected class.")
+                checkbox_clickable_element.click()
+            else:
+                print("Element class does not match the expected class.")
+
+
+            time.sleep(2)
+            actions.key_down(Keys.ESCAPE)
+            actions.key_up(Keys.ESCAPE)
+            actions.key_down(Keys.ESCAPE)
+            actions.key_up(Keys.ESCAPE)
+            actions.perform()
+
+            
+        except Exception as e:
+            self.log(f"Failed to prepare textbox or click 'Chats': {e}")
+       
 
 
     def go_to_unknown_number(self):
@@ -74,17 +135,17 @@ class WAbot:
             message_Element.click()
             self.log("Clicked message box successfully...")
             time.sleep(humanize)
-            self.driver.execute_script("""
-                arguments[0].textContent = arguments[1];
-                const inputEvent = new Event('input', { bubbles: true });
-                arguments[0].dispatchEvent(inputEvent);
-            """, message_Element, msg)
+            message_Element.send_keys(msg)
             self.log("Typed message successfully, sending...")
             time.sleep(humanize)
-            message_Element.send_keys(Keys.RETURN)
+            send_Element = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[2]/button'))
+            )
+            send_Element.click()
             self.log("Sent message successfully.")
         except Exception as e:
             self.log(f"Failed to send message: {e}")
+            
 
     def check_if_wa(self, phone_number: str):
         try:
